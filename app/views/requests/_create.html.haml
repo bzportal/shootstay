@@ -17,7 +17,10 @@
           .form-group
             = f.label :location_type, class: "col-sm-4"
             .col-sm-8
-              = f.input_field :location_type, class: "form-control"
+              - Request::LOCATION_TYPE.each do |location|
+                %label
+                  %input{type: 'checkbox', name: "request[location_type][]", value: "#{location}"}
+                  = location
           .form-group
             = f.label :start_date, class: "col-sm-4"
             .col-sm-8

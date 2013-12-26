@@ -1,0 +1,50 @@
+.widget.stacked
+  .widget-header
+    %h4
+      %i.icon-menu
+      Homeowners
+  .widget-content.min-height-200
+    - unless current_user.has_role? :admin
+      .col-xs-12.text-right
+        = link_to "Make a Homeowner", "#add-homeowner", class: "btn btn-primary", data: { toggle: "modal" }
+      = render partial: "create"
+
+    .table-responsive
+      %table.table.table-striped.table-bordered
+        %thead
+          %tr
+            %th #
+            %th Preferred Location 1
+            %th Preferred Location 2
+            %th Start Date
+            %th End Date
+            %th Submitted
+            %th Status
+            %th.action-field
+        %tbody
+          - @homeowners.each_with_index do |homeowner, i|
+            %tr
+              %td
+                = i + 1#link_to "View Detail", homeowner_path(homeowner)
+              %td
+                = homeowner.preferred_location1
+              %td
+                = homeowner.preferred_location2
+              %td
+                = homeowner.start_date
+              %td
+                = homeowner.end_date
+              %td
+                = homeowner.created_at.to_date
+              %td
+                - if current_user.has_role? :admin
+                  %a{"data-toggle" => "modal", href: "#status-options-#{homeowner.id}"}
+                    = homeowner.status.titleize unless homeowner.status.nil?
+                  = render partial: "status", locals: {homeowner: homeowner}
+                - else
+                  = homeowner.status.titleize unless homeowner.status.nil?
+              %td
+                = link_to "<i class='icon-edit'></i> Edit".html_safe, "#homeowner-#{homeowner.id}", class: "btn btn-default btn-sm", data: { toggle: "modal" }
+                = render partial: "modify", locals: {homeowner: homeowner}
+                = link_to "<i class='icon-remove'></i> Remove".html_safe, homeowner_path(homeowner), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-default btn-sm"
+      = will_paginate @homeowners, previous_label: "&laquo;", next_label: "&raquo;"
