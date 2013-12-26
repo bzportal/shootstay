@@ -9,6 +9,11 @@ class RegistrationsController < Devise::RegistrationsController
     end
   end
 
+  def create
+    super
+    UserMailer.user_applied(resource).deliver
+  end
+
   def update_plan
     @user = current_user
     role = Role.find(params[:user][:role_ids]) unless params[:user][:role_ids].nil?
@@ -31,10 +36,15 @@ class RegistrationsController < Devise::RegistrationsController
     end
   end
 
+  def after_sign_up_path_for(resource)
+    redirect_to root_path, notice: "Your application has been sent successfully!. Wait for approval."
+  end
+
   private
   def build_resource(*args)
     super
     if params[:plan]
+      resource.status = "Applied"
       resource.add_role(params[:plan])
     end
   end

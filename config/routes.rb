@@ -12,5 +12,8 @@ ShootstayV3::Application.routes.draw do
     put 'update_plan', :to => 'registrations#update_plan'
     put 'update_card', :to => 'registrations#update_card'
   end
+
   resources :users
+
+  resources :requests
 end

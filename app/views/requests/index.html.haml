@@ -1,0 +1,50 @@
+.widget.stacked
+  .widget-header
+    %h4
+      %i.icon-menu
+      Requests
+  .widget-content.min-height-200
+    - unless current_user.has_role? :admin
+      .col-xs-12.text-right
+        = link_to "Make a Request", "#add-request", class: "btn btn-primary", data: { toggle: "modal" }
+      = render partial: "create"
+
+    .table-responsive
+      %table.table.table-striped.table-bordered
+        %thead
+          %tr
+            %th #
+            %th Preferred Location 1
+            %th Preferred Location 2
+            %th Start Date
+            %th End Date
+            %th Submitted
+            %th Status
+            %th.action-field
+        %tbody
+          - @requests.each_with_index do |request, i|
+            %tr
+              %td
+                = i + 1#link_to "View Detail", request_path(request)
+              %td
+                = request.preferred_location1
+              %td
+                = request.preferred_location2
+              %td
+                = request.start_date
+              %td
+                = request.end_date
+              %td
+                = request.created_at.to_date
+              %td
+                - if current_user.has_role? :admin
+                  %a{"data-toggle" => "modal", href: "#status-options-#{request.id}"}
+                    = request.status.titleize unless request.status.nil?
+                  = render partial: "status", locals: {request: request}
+                - else
+                  = request.status.titleize unless request.status.nil?
+              %td
+                = link_to "<i class='icon-edit'></i> Edit".html_safe, "#request-#{request.id}", class: "btn btn-default btn-sm", data: { toggle: "modal" }
+                = render partial: "modify", locals: {request: request}
+                = link_to "<i class='icon-remove'></i> Remove".html_safe, request_path(request), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-default btn-sm"
+      = will_paginate @requests, previous_label: "&laquo;", next_label: "&raquo;"

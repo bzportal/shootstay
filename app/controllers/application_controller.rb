@@ -6,18 +6,16 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    case current_user.roles.first.name
-      when 'admin'
-        users_path
-      when 'silver'
-        content_silver_path
-      when 'gold'
-        content_gold_path
-      when 'platinum'
-        content_platinum_path
+    if current_user.roles.first.name == "admin"
+      users_path
+    else
+      if current_user.customer_id.nil?
+        edit_user_registration_path(notice: "Welcome to apply shootstay!")
       else
-        root_path
+        raise
+        redirect_to requests_path
+      end
     end
   end
-  
+
 end

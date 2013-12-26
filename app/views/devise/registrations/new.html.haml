@@ -1,32 +1,30 @@
-- content_for :head do
-  = tag :meta, :name => "stripe-key", :content => STRIPE_PUBLIC_KEY
-%h2 Sign up
-#stripe_error.alert.alert-error{:style => "display:none"}
-= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:class => 'card_form form-vertical' }) do |f|
-  %h3
-    = params[:plan].titleize if params[:plan]
-    Subscription Plan
-  = hidden_field_tag 'plan', params[:plan]
-  = f.error_notification
-  = display_base_errors resource
-  = f.input :name, :autofocus => true
-  = f.input :email, :required => true
-  = f.input :password, :required => true
-  = f.input :password_confirmation, :required => true
-  - if @user.stripe_token
-    %p Credit card acceptance is pending.
-  - else
-    .field
-      = label_tag :card_number, "Credit Card Number"
-      = text_field_tag :card_number, nil, name: nil
-    .field
-      = label_tag :card_code, "Card Security Code (CVV)"
-      = text_field_tag :card_code, nil, name: nil
-    .field
-      = label_tag :card_month, "Card Expiration"
-      = select_month nil, {add_month_numbers: true}, {name: nil, id: "card_month"}
-      = select_year nil, {start_year: Date.today.year, end_year: Date.today.year+10}, {name: nil, id: "card_year"}
-    .field
-      = f.input :coupon, :label => 'Promotional Coupon (if any)'
-  = f.hidden_field :stripe_token
-  = f.button :submit, 'Sign up', :class => 'btn-primary'
+.account-container.register.stacked
+  .content.clearfix
+    - content_for :head do
+      = tag :meta, :name => "stripe-key", :content => STRIPE_PUBLIC_KEY
+    #stripe_error.alert.alert-error{:style => "display:none"}
+    = simple_form_for(@user, :as => resource_name, :url => registration_path(resource_name), :html => {:class => 'form-vertical' }) do |f|
+      %h1 Create Your Account
+      .login-fields
+        = hidden_field_tag 'plan', params[:plan]
+        %p Create your free account:
+        .field
+          = f.input :first_name, input_html: { class: "form-control" }, placeholder: "First Name", :autofocus => true
+        .field
+          = f.input :last_name, input_html: { class: "form-control" }, placeholder: "Last Name"
+
+        .field
+          = f.input :email, input_html: { class: "form-control" }, placeholder: "Email"
+
+        .field
+          = f.input :password, input_html: { class: "form-control" }, placeholder: "Password"
+
+        .field
+          = f.input :password_confirmation, input_html: { class: "form-control" }, placeholder: "Password Confirmation"
+
+      .login-actions
+        %span.login-checkbox
+          %input#Field.field.login-checkbox{name: "Field", tabindex: "4", type: "checkbox", value: "First Choice"}/
+          %label.choice{for: "Field"} I have read and agree with the Terms of Use.
+        %button.login-action.btn.btn-primary Register
+      / .actions

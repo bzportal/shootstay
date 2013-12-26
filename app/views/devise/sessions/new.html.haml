@@ -1,7 +1,33 @@
-%h2 Sign in
-= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:class => 'form-vertical' }) do |f|
-  = f.input :email, :autofocus => true
-  = f.input :password
-  = f.input :remember_me, :as => :boolean if devise_mapping.rememberable?
-  = f.button :submit, "Sign in", :class => 'btn-primary'
-= render "devise/shared/links"
+.account-container.stacked
+  .content.clearfix
+    = simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:class => 'form-vertical' }) do |f|
+      %h1 Sign In
+      .login-fields
+        %p Sign in using your registered account:
+        .field
+          = f.input_field :email, :class => "form-control input-lg username-field", placeholder: "Email", :autofocus => true
+
+        .field
+          = f.input_field :password, :class => "form-control input-lg password-field",placeholder: "Password"
+      .login-actions
+        - if devise_mapping.rememberable?
+          %span.login-checkbox
+            %input#user_remember_me.boolean.optional.field.login-checkbox{name: "user[remember_me]", type: "checkbox", value: "1"}/
+            %label.choice{for: ""} Keep me signed in
+        %button.login-action.btn.btn-primary Sign In
+      / .actions
+      /
+        <div class="login-social">
+        <p>Sign in using social network:</p>
+        
+        <div class="twitter">
+        <a href="#" class="btn_1">Login with Twitter</a>
+        </div>
+        
+        <div class="fb">
+        <a href="#" class="btn_2">Login with Facebook</a>
+        </div>
+        </div>
+
+.login-extra
+  = render "devise/shared/links"

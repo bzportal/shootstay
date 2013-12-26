@@ -7,10 +7,34 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :name, :email, :password, :password_confirmation, :remember_me, :stripe_token, :coupon
+  attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :remember_me, :stripe_token, :coupon,
+    :status, :state, :city
   attr_accessor :stripe_token, :coupon
   before_save :update_stripe
   before_destroy :cancel_subscription
+  
+  has_many :requests
+
+  STATUS = %w[Applied Approved Declined Deactivated]
+  def name
+    self.last_name = " " if self.last_name.nil?
+    self.first_name = " " if self.first_name.nil?
+    self.first_name + " " + self.last_name
+  end
+
+  def active_for_authentication?
+    if self.roles.first.name == "admin"
+      super
+    else
+      super && self.status == "Approved"
+    end
+  end
+
+  def inactive_message
+    "Sorry, your account is not activated."
+  end
+
+  private
 
   def update_plan(role)
     self.role_ids = []
@@ -29,10 +53,11 @@ class User < ActiveRecord::Base
   def update_stripe
     return if email.include?(ENV['ADMIN_EMAIL'])
     return if email.include?('@example.com') and not Rails.env.production?
+    return if !stripe_token.present?
     if customer_id.nil?
-      if !stripe_token.present?
-        raise "Stripe token not present. Can't create account."
-      end
+      # if !stripe_token.present?
+      #   raise "Stripe token not present. Can't create account."
+      # end
       if coupon.blank?
         customer = Stripe::Customer.create(
           :email => email,
