@@ -1,2 +1,23 @@
-%h1 Homeowners#_modify
-%p Find me in app/views/homeowners/_modify.html.haml
+.modal.fade{ role: "dialog", id: "homeowner-" + homeowner.id.to_s }
+  = simple_form_for homeowner, url: homeowner_path(homeowner), :html => {:method => :put, :class => 'form-horizontal' } do |f|
+    .modal-dialog
+      .modal-content
+        .modal-header
+          %a.close{"data-dismiss" => "modal"} ×
+          %h4 Update Homeowner
+        .modal-body
+          .form-group
+            = f.label :first_name, class: "col-sm-4"
+            .col-sm-8
+              = f.input_field :first_name, class: "form-control"
+          .form-group
+            = f.label :last_name, class: "col-sm-4"
+            .col-sm-8
+              = f.input_field :last_name, class: "form-control"
+          .form-group
+            = f.label :email, class: "col-sm-4"
+            .col-sm-8
+              = f.email_field :email, class: "form-control"
+        .modal-footer
+          = f.submit "Update", :class => "btn btn-primary"
+          %a.btn.btn-default{"data-dismiss" => "modal", href: "#"} Cancel

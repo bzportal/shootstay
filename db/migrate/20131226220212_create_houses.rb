@@ -6,8 +6,8 @@ class CreateHouses < ActiveRecord::Migration
     	t.string :city
     	t.string :state
     	t.string :zipcode
-    	t.string :type
-    	t.attachment :photo
+    	t.string :house_type
+
       t.timestamps
     end
   end

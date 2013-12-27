@@ -1310,7 +1310,7 @@ ul.pagination li.active a:hover {
   left: 6px;
   right: 6px;
 }
-.preview {
+/*.preview {
   position: absolute;
   top: 7px;
   left: 7px;
@@ -1326,7 +1326,7 @@ ul.pagination li.active a:hover {
   border-top-left-radius: 3px;
   border-bottom-right-radius: 3px;
   border-bottom-left-radius: 3px;
-}
+}*/
 .btn-default,
 .btn-primary,
 .btn-secondary,

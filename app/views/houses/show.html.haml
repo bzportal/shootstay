@@ -1,0 +1,6 @@
+%p= @house.url
+%p= @house.city
+%p= @house.state
+- @house.pictures.each do |p|
+	.col-sm-3
+		= image_tag p.photo.url, class: "img-thumbnail img-responsive"

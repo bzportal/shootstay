@@ -1,0 +1,42 @@
+.widget.stacked
+  .widget-header
+    %h4
+      %i.icon-menu
+      Houses
+  .widget-content.min-height-200
+    - unless current_user.has_role? :admin
+      .col-xs-12.text-right
+        = link_to "Make a House", "#add-house", class: "btn btn-primary", data: { toggle: "modal" }
+      = render partial: "create"
+
+    .table-responsive
+      %table.table.table-striped.table-bordered
+        %thead
+          %tr
+            %th #
+            %th Url
+            %th City
+            %th State
+            %th Zip Code
+            %th House Type
+            %th Created
+            %th.action-field
+        %tbody
+          - @houses.each_with_index do |house, i|
+            %tr
+              %td
+                = i + 1#link_to "View Detail", house_path(house)
+              %td
+                = house.url
+              %td
+                = house.city
+              %td
+                = house.state
+              %td
+                = house.zipcode
+              %td
+                = house.house_type.to_date
+              %td
+                = link_to "<i class='icon-edit'></i> Edit".html_safe, edit_house_path, class: "btn btn-default btn-sm"
+                = link_to "<i class='icon-remove'></i> Remove".html_safe, house_path(house), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-default btn-sm"
+      = will_paginate @houses, previous_label: "&laquo;", next_label: "&raquo;"

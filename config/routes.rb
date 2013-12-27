@@ -17,4 +17,6 @@ ShootstayV3::Application.routes.draw do
 
   resources :requests
   resources :homeowners
+  resources :houses
+  resources :pictures
 end

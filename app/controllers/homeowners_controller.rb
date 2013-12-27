@@ -7,6 +7,7 @@ class HomeownersController < ApplicationController
 
 	def show
 		@homeowner = Homeowner.find(params[:id])
+		@houses = @homeowner.houses.paginate(page: params[:page], per_page: 10)
 	end
 
 	def edit

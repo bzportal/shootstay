@@ -1,0 +1,40 @@
+.widget.stacked
+  .widget-header
+    %h4
+      %i.icon-home
+      Homeowners > 
+      = @homeowner.name
+      's Houses
+  .widget-content.min-height-200
+    .col-xs-12.text-right
+      = link_to "Create House", new_house_path(homeowner: @homeowner.id), class: "btn btn-primary"
+    .table-responsive
+      %table.table.table-striped.table-bordered
+        %thead
+          %tr
+            %th #
+            %th Url
+            %th City
+            %th State
+            %th Zipcode
+            %th Type
+            %th.action-field
+        %tbody
+          - @houses.each do |house|
+            %tr
+              %td
+                = link_to "View Detail", house_path(house)
+              %td
+                = house.url
+              %td
+                = house.city
+              %td
+                = house.state
+              %td
+                = house.zipcode
+              %td
+                = house.house_type
+              %td
+                = link_to "<i class='icon-edit'></i> Edit".html_safe, edit_house_path(house), class: "btn btn-default btn-sm"
+                = link_to "<i class='icon-remove'></i> Remove".html_safe, house_path(house), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-danger btn-sm"
+      = will_paginate @houses, previous_label: "&laquo;", next_label: "&raquo;"

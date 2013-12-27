@@ -11,7 +11,36 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131226141408) do
+ActiveRecord::Schema.define(:version => 20131227154530) do
+
+  create_table "homeowners", :force => true do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "email"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "houses", :force => true do |t|
+    t.integer  "homeowner_id"
+    t.string   "url"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zipcode"
+    t.string   "house_type"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  create_table "pictures", :force => true do |t|
+    t.integer  "house_id"
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
 
   create_table "requests", :force => true do |t|
     t.integer  "user_id"
