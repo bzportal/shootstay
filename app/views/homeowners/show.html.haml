@@ -2,7 +2,8 @@
   .widget-header
     %h4
       %i.icon-home
-      Homeowners > 
+      = link_to "Homeowners", homeowners_path
+      > 
       = @homeowner.name
       's Houses
   .widget-content.min-height-200

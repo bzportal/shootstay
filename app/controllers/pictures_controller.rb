@@ -4,7 +4,8 @@ class PicturesController < ApplicationController
 	# GET /pictures
   # GET /pictures.json
   def index
-    @pictures = Picture.all
+    house_id = params[:house_id]
+    @pictures = Picture.where(house_id: house_id)
 
     respond_to do |format|
       format.html # index.html.erb

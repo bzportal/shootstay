@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-sm-6 col-xs-12">
       <h2>Pictures</h2>
-      <%= simple_form_for @house, url: houses_path, remote: true, html: { method: :post, class: "form-horizontal" } do |f| %>
+      <%= simple_form_for @house, url: house_path(@house), remote: true, html: { method: :put, class: "form-horizontal" } do |f| %>
         <%= f.hidden_field :homeowner_id %>
         <%= render partial: "form", locals: {f: f} %>
         <br>
@@ -34,7 +34,6 @@
             <i class="icon-trash icon-white"></i>
             <span>Delete</span>
           </button> -->
-          <input type="checkbox" class="toggle">
         </div>
         <div class="span5">
           <!-- The global progress bar -->
@@ -75,8 +74,8 @@
       {% } %}
     </div>
 
-    <div class="cancel">{% if (!i) { %}
-      <a class="">
+    <div class="cancel pull-right">{% if (!i) { %}
+      <a class="btn-lg">
         <i class="icon-ban-circle icon-white"></i>
       </a>
       {% } %}
@@ -96,8 +95,8 @@
           <a href="{%=file.url%}" title="{%=file.name%}" rel="gallery" download="{%=file.name%}"><img src="{%=file.thumbnail_url%}"></a>
           {% } %}</div>
         {% } %}
-      <div class="delete">
-        <a class="" data-type="{%=file.delete_type%}" data-url="{%=file.delete_url%}">
+      <div class="delete pull-right">
+        <a class="btn-lg" data-type="{%=file.delete_type%}" data-url="{%=file.delete_url%}">
           <i class="icon-trash icon-white"></i>
         </a>
       </div>
@@ -108,10 +107,7 @@
 <script type="text/javascript" charset="utf-8">
   $(function () {
       // Initialize the jQuery File Upload widget:
-      $('#fileupload').fileupload()
-      .bind("fileuploaddone", function(e, data){
-        window.location.href = "<%= homeowner_path(@house.homeowner_id) %>";
-      });
+      $('#fileupload').fileupload();
 
       $("#new_house").on("ajax:success", function(e, data, status, xhr) {
         $("#picture_house_id").val(data.id);
@@ -119,7 +115,7 @@
       })
  
       // Load existing files:
-      $.getJSON("<%= picture_path(house_id: @house.id) %>", function (files) {
+      $.getJSON("<%= pictures_url(house_id: @house.id) %>", function (files) {
         var fu = $('#fileupload').data('blueimpFileupload'), 
           template;
         fu._adjustMaxNumberOfFiles(-files.length);

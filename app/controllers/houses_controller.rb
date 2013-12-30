@@ -12,9 +12,24 @@ class HousesController < ApplicationController
     end
   end
 
+  def update
+    @house = House.find(params[:id])
+
+    if @house.update_attributes(params[:house])
+      respond_with(@house, :status => 200, :default_template => :show)
+    else
+      render json: @house.errors, status: :unprocessable_entity
+    end
+  end
+
   def new
     @house = House.new
     @house.homeowner_id = params[:homeowner]
+  end
+  
+  def edit
+    @house = House.find(params[:id])
+
   end
 
   def show
