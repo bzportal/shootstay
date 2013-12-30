@@ -20,6 +20,8 @@ $(function () {
         };
       }
     },
-
+    formatResult: locationFormatResult,
+    formatSelection: locationFormatSelection,
+    dropdownCssClass: "bigdrop"
   });
 });
