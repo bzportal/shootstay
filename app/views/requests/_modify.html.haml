@@ -1,0 +1,36 @@
+.modal.fade{ role: "dialog", id: "request-" + request.id.to_s }
+  = simple_form_for request, url: request_path(request), :html => {:method => :put, :class => 'form-horizontal' } do |f|
+    .modal-dialog
+      .modal-content
+        .modal-header
+          %a.close{"data-dismiss" => "modal"} ×
+          %h4 Update Request
+        .modal-body
+          .form-group
+            = f.label :preferred_location1, class: "col-sm-4"
+            .col-sm-8
+              = f.input_field :preferred_location1, class: "form-control"
+          .form-group
+            = f.label :preferred_location2, class: "col-sm-4"
+            .col-sm-8
+              = f.input_field :preferred_location2, class: "form-control"
+          .form-group
+            = f.label :location_type, class: "col-sm-4"
+            .col-sm-8
+              = f.input_field :location_type, class: "form-control"
+          .form-group
+            = f.label :start_date, class: "col-sm-4"
+            .col-sm-8
+              = f.input_field :start_date, class: "form-control datepicker"
+          .form-group
+            = f.label :end_date, class: "col-sm-4"
+            .col-sm-8
+              = f.input_field :end_date, class: "form-control datepicker"
+          .form-group
+            = f.label :note, class: "col-sm-4"
+            .col-sm-8
+              = f.text_area :note, rows: 7, class: "form-control"
+
+        .modal-footer
+          = f.submit "Update", :class => "btn btn-primary"
+          %a.btn.btn-default{"data-dismiss" => "modal", href: "#"} Cancel

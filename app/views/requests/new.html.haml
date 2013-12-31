@@ -1,0 +1,12 @@
+.widget.stacked
+	.widget-header
+		%h4
+			%i.icon-menu
+			Make a request
+	.widget-content.min-height-200
+		= simple_form_for(:request, :html => { :class => 'form-horizontal' }) do |f|
+			= f.input :preferred_location1, :autofocus => true
+			= f.input :preferred_location2
+			=# f.collection_check_boxes :location_type, Request::LOCATION_TYPE
+			= f.input :start_date, input_html: { class: "datepicker" }, required: true
+			= f.input :end_date, input_html: { class: "datepicker" }, required: true

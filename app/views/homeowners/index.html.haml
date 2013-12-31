@@ -1,0 +1,35 @@
+.widget.stacked
+  .widget-header
+    %h4
+      %i.icon-menu
+      Homeowners
+  .widget-content.min-height-200
+    .col-xs-12.text-right
+      = link_to "Make a Homeowner", "#add-homeowner", class: "btn btn-primary", data: { toggle: "modal" }
+    = render partial: "create"
+
+    .table-responsive
+      %table.table.table-striped.table-bordered
+        %thead
+          %tr
+            %th #
+            %th First Name
+            %th Last Name
+            %th Email
+            %th.action-field
+        %tbody
+          - @homeowners.each_with_index do |homeowner, i|
+            %tr
+              %td
+                = link_to "View Detail", homeowner_path(homeowner)
+              %td
+                = homeowner.first_name
+              %td
+                = homeowner.last_name
+              %td
+                = homeowner.email
+              %td
+                = link_to "<i class='icon-edit'></i> Edit".html_safe, "#homeowner-#{homeowner.id}", class: "btn btn-default btn-sm", data: { toggle: "modal" }
+                = render partial: "modify", locals: {homeowner: homeowner}
+                = link_to "<i class='icon-remove'></i> Remove".html_safe, homeowner_path(homeowner), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-danger btn-sm"
+      = will_paginate @homeowners, previous_label: "&laquo;", next_label: "&raquo;"

@@ -1,0 +1,12 @@
+.modal.fade{:id => "status-options-#{request.id}"}
+	= simple_form_for request, :url => request_path(request), :html => {:method => :put, :class => 'form-horizontal' } do |f|
+		.modal-dialog
+			.modal-content
+				.modal-header
+					%a.close{"data-dismiss" => "modal"} ×
+					%h4 Change Status
+				.modal-body
+					= f.input :status, :collection => Request::STATUS, :as => :radio_buttons, :label_method => lambda {|t| t.titleize}, :label => false, :item_wrapper_class => 'inline'#, checked: request.role_ids.first
+				.modal-footer
+					= f.submit "Change Status", :class => "btn btn-primary"
+					%a.btn.btn-default{"data-dismiss" => "modal", :href => "#"} Close

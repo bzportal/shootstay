@@ -1,0 +1,23 @@
+#add-homeowner.modal.fade{role: "dialog"}
+  = simple_form_for :homeowner, url: homeowners_path, :html => {:method => :post, :multipart => true, :class => 'form-horizontal' } do |f|
+    .modal-dialog
+      .modal-content
+        .modal-header
+          %a.close{"data-dismiss" => "modal"} ×
+          %h4 Add Homeowner
+        .modal-body
+          .form-group
+            = f.label :first_name, class: "col-sm-4"
+            .col-sm-8
+              = f.input_field :first_name, class: "form-control"
+          .form-group
+            = f.label :last_name, class: "col-sm-4"
+            .col-sm-8
+              = f.input_field :last_name, class: "form-control"
+          .form-group
+            = f.label :email, class: "col-sm-4"
+            .col-sm-8
+              = f.input_field :email, class: "form-control"
+        .modal-footer
+          = f.submit "Create", :class => "btn btn-primary"
+          %a.btn.btn-default{"data-dismiss" => "modal", href: "#"} Cancel

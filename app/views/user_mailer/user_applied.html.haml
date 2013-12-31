@@ -1,0 +1,11 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+  %body
+    %h2 "#{@user.name}" has been applied
+    %p
+      Please visit this link
+      = link_to "View user's application", users_url
+      to approve/decline user's application.
+      
