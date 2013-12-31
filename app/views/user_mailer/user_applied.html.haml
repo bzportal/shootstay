@@ -6,9 +6,9 @@
     %h2 "#{@user.name}" has been applied
     %p
       Please visit this link
-      = link_to "Approve", approve_registration_url(@user)
+      = link_to "Approve", approve_users_url(email: @user.email)
       = " / "
-      = link_to "Decline", decline_registration_url(@user)
+      = link_to "Decline", decline_users_url(email: @user.email)
 
       to approve/decline user's application.
       

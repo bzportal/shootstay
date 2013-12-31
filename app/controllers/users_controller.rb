@@ -29,6 +29,26 @@ class UsersController < ApplicationController
     end
   end
 
+  def approve
+    authorize! :update, @user, :message => 'Not authorized as an administrator.'
+    @user = User.find_by_email(params[:email])
+    @user.status = "Approved"
+    @user.save
+    UserMailer.approve_user(@user).deliver
+
+    redirect_to users_path, notice: "You approved #{@user.name}'s application"
+  end
+
+  def decline
+    authorize! :update, @user, :message => 'Not authorized as an administrator.'
+    @user = User.find_by_email(params[:email])
+    @user.status = "Declined"
+    @user.save
+    UserMailer.decline_user(@user).deliver
+
+    redirect_to users_path, notice: "You declined #{@user.name}'s application"
+  end
+
   def destroy
     authorize! :destroy, @user, :message => 'Not authorized as an administrator.'
     user = User.find(params[:id])
