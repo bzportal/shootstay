@@ -8,9 +8,12 @@
       .col-xs-12.text-right
         = link_to "Make a Request", "#add-request", class: "btn btn-primary", data: { toggle: "modal" }
       = render partial: "create"
-
+    
+    -# Table
     .table-responsive
       %table.table.table-striped.table-bordered
+      
+        -# Table Head
         %thead
           %tr
             %th #
@@ -21,6 +24,8 @@
             %th Submitted
             %th Status
             %th.action-field
+            
+        -# Table Body
         %tbody
           - @requests.each_with_index do |request, i|
             %tr

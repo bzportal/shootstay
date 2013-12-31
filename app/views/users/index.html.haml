@@ -2,10 +2,11 @@
   .widget-header
     %i.icon-user
     %h3 Users
-  / /widget-header
   .widget-content
     .table-responsive
       %table.table.table-striped.table-bordered
+      
+        -# Table Head
         %thead
           %tr
             %th User Name
@@ -14,6 +15,8 @@
             %th Status
             %th Role
             %th Action
+            
+        -# Table Head
         %tbody
           - @users.each do |user|
             %tr
