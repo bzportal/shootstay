@@ -2,9 +2,17 @@
   = simple_form_for request, url: request_path(request), :html => {:method => :put, :class => 'form-horizontal' } do |f|
     .modal-dialog
       .modal-content
+      
+        -# Header
         .modal-header
+          
+          -# Close button
           %a.close{"data-dismiss" => "modal"} ×
+          
+          -# header
           %h4 Update Request
+          
+        -# Body
         .modal-body
           .form-group
             = f.label :preferred_location1, class: "col-sm-4"
@@ -30,7 +38,8 @@
             = f.label :note, class: "col-sm-4"
             .col-sm-8
               = f.text_area :note, rows: 7, class: "form-control"
-
+        
+        -# Footer
         .modal-footer
           = f.submit "Update", :class => "btn btn-primary"
           %a.btn.btn-default{"data-dismiss" => "modal", href: "#"} Cancel

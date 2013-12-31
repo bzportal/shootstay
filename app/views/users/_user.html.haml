@@ -2,11 +2,21 @@
 	= simple_form_for user, :url => user_path(user), :html => {:method => :put, :class => 'form-horizontal' } do |f|
 		.modal-dialog
 			.modal-content
+			
+			  -# Header
 				.modal-header
+				
+				  -# Close button
 					%a.close{"data-dismiss" => "modal"} ×
+					
+					-# Header
 					%h4 Change Status
+					
+				-# Body
 				.modal-body
 					= f.input :status, :collection => User::STATUS, :as => :radio_buttons, :label_method => lambda {|t| t.titleize}, :label => false, :item_wrapper_class => 'inline'#, checked: user.role_ids.first
+				
+				-# Footer
 				.modal-footer
 					= f.submit "Change Status", :class => "btn btn-primary"
 					%a.btn.btn-default{"data-dismiss" => "modal", :href => "#"} Close
