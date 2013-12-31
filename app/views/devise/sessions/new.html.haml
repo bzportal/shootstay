@@ -1,33 +1,26 @@
-.account-container.stacked
-  .content.clearfix
-    = simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:class => 'form-vertical' }) do |f|
-      %h1 Sign In
-      .login-fields
-        %p Sign in using your registered account:
-        .field
-          = f.input_field :email, :class => "form-control input-lg username-field", placeholder: "Email", :autofocus => true
+.container
 
-        .field
-          = f.input_field :password, :class => "form-control input-lg password-field",placeholder: "Password"
-      .login-actions
-        - if devise_mapping.rememberable?
-          %span.login-checkbox
-            %input#user_remember_me.boolean.optional.field.login-checkbox{name: "user[remember_me]", type: "checkbox", value: "1"}/
-            %label.choice{for: ""} Keep me signed in
-        %button.login-action.btn.btn-primary Sign In
-      / .actions
-      /
-        <div class="login-social">
-        <p>Sign in using social network:</p>
-        
-        <div class="twitter">
-        <a href="#" class="btn_1">Login with Twitter</a>
-        </div>
-        
-        <div class="fb">
-        <a href="#" class="btn_2">Login with Facebook</a>
-        </div>
-        </div>
-
-.login-extra
+  -# Field Groups
+  = simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:class => 'form-vertical' }) do |f|
+    
+    -# Header
+    %h1 Sign In
+    
+    -# Fields
+    .login-fields
+      .form-group
+        = f.input_field :email, :class => "form-control input-lg username-field", placeholder: "Email", :autofocus => true
+      .form-group
+        = f.input_field :password, :class => "form-control input-lg password-field",placeholder: "Password"
+    
+    -# Checkbox
+    .checkbox
+      - if devise_mapping.rememberable?
+        %input{name: "user[remember_me]", type: "checkbox", value: "1"}
+          %label.choice{for: ""} Keep me signed in
+     
+    -# Button
+    %button.btn.btn-primary Sign In
+      
+  -# Links
   = render "devise/shared/links"
