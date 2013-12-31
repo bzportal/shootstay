@@ -86,6 +86,7 @@ ActiveRecord::Schema.define(:version => 20131227154530) do
     t.string   "portfolio"
     t.string   "city"
     t.string   "state"
+    t.string   "biography"
     t.string   "status"
   end
 

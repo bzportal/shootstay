@@ -5,6 +5,7 @@ class AddFieldsToUsers < ActiveRecord::Migration
     add_column :users, :portfolio, :string
     add_column :users, :city, :string
     add_column :users, :state, :string
+    add_column :users, :biography, :string
     add_column :users, :status, :string
   end
 end

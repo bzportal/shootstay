@@ -12,7 +12,12 @@
           = f.input :first_name, input_html: { class: "form-control" }, placeholder: "First Name", :autofocus => true
         .field
           = f.input :last_name, input_html: { class: "form-control" }, placeholder: "Last Name"
-
+        .field
+          = f.input :city, input_html: { class: "form-control" }, placeholder: "City"
+        .field
+          = f.input :state, input_html: { class: "form-control" }, placeholder: "State"
+        .field
+          = f.input :portfolio, input_html: { class: "form-control" }, placeholder: "Portfolio"
         .field
           = f.input :email, input_html: { class: "form-control" }, placeholder: "Email"
 
@@ -21,6 +26,8 @@
 
         .field
           = f.input :password_confirmation, input_html: { class: "form-control" }, placeholder: "Password Confirmation"
+        .field
+          = f.input :biography, as: :text, input_html: { rows: 7, class: "form-control" }, placeholder: "Biography"
 
       .login-actions
         %span.login-checkbox

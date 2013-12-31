@@ -1,0 +1,88 @@
+<script>
+  var fileUploadErrors = {
+  maxFileSize: 'File is too big',
+  minFileSize: 'File is too small',
+  acceptFileTypes: 'Filetype not allowed',
+  maxNumberOfFiles: 'Max number of files exceeded',
+  uploadedBytes: 'Uploaded bytes exceed file size',
+  emptyResult: 'Empty file upload result'
+  };
+</script>
+
+<!-- The template to display files available for upload -->
+<script id="template-upload" type="text/x-tmpl">
+  {% for (var i=0, file; file=o.files[i]; i++) { %}
+  <div class="template-upload fade col-sm-3 thumbnail">
+    <div class="preview"><span class="fade"></span></div>
+    <div class="start hide">{% if (!o.options.autoUpload) { %}
+      <button class="btn btn-primary">
+        <i class="icon-upload icon-white"></i>
+        <span>{%=locale.fileupload.start%}</span>
+      </button>
+      {% } %}
+    </div>
+
+    <div class="cancel pull-right">{% if (!i) { %}
+      <button class="btn btn-danger">
+        <i class="icon-ban-circle icon-white"></i>
+      </button>
+      {% } %}
+    </div>
+  </div>
+  {% } %}
+</script>
+<!-- The template to display files available for download -->
+<script id="template-download" type="text/x-tmpl">
+  {% for (var i=0, file; file=o.files[i]; i++) { %}
+    <div class="template-download fade col-sm-3 thumbnail">
+      {% if (file.error) { %}
+        <div></div>
+        <div class="error" colspan="2"><span class="label label-important">{%=locale.fileupload.error%}</span> {%=locale.fileupload.errors[file.error] || file.error%}</div>
+        {% } else { %}
+        <div class="preview">{% if (file.thumbnail_url) { %}
+          <a href="{%=file.url%}" title="{%=file.name%}" rel="gallery" download="{%=file.name%}"><img src="{%=file.thumbnail_url%}"></a>
+          {% } %}</div>
+        {% } %}
+      <div class="delete pull-right">
+        <button class="btn btn-danger" data-type="{%=file.delete_type%}" data-url="{%=file.delete_url%}">
+          <i class="icon-trash icon-white"></i>
+        </button>
+      </div>
+    </div>
+    {% } %}
+</script>
+
+<script type="text/javascript" charset="utf-8">
+  $(function () {
+      // Initialize the jQuery File Upload widget:
+      $('#fileupload').fileupload({
+        previewMaxWidth: 200,
+        previewMaxHeight: 200,
+        previewCrop: true
+      })
+      .bind("fileuploaddone", function(e, data){
+        window.location.href = "<%= homeowner_path(@house.homeowner_id) %>";
+      });
+
+      $("#new_house").on("ajax:success", function(e, data, status, xhr) {
+        $("#picture_house_id").val(data.id);
+        $('#btn_upload').click();
+      })
+ 
+      // Load existing files:
+      $.getJSON("<%= pictures_path(house_id: @house.id) %>", function (files) {
+        var fu = $('#fileupload').data('blueimpFileupload'), 
+          template;
+        fu._adjustMaxNumberOfFiles(-files.length);
+        console.log(files);
+        template = fu._renderDownload(files)
+          .appendTo($('#fileupload .files'));
+        // Force reflow:
+        fu._reflow = fu._transition && template.length &&
+          template[0].offsetWidth;
+        template.addClass('in');
+        $('#loading').remove();
+      });
+
+  });
+</script>
