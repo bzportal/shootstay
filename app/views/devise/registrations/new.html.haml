@@ -1,37 +1,39 @@
-.account-container.register.stacked
-  .content.clearfix
-    - content_for :head do
-      = tag :meta, :name => "stripe-key", :content => STRIPE_PUBLIC_KEY
-    #stripe_error.alert.alert-error{:style => "display:none"}
-    = simple_form_for(@user, :as => resource_name, :url => registration_path(resource_name), :html => {:class => 'form-vertical' }) do |f|
-      %h1 Create Your Account
-      .login-fields
-        = hidden_field_tag 'plan', params[:plan]
-        %p Create your free account:
-        .field
-          = f.input :first_name, input_html: { class: "form-control" }, placeholder: "First Name", :autofocus => true
-        .field
-          = f.input :last_name, input_html: { class: "form-control" }, placeholder: "Last Name"
-        .field
-          = f.input :city, input_html: { class: "form-control" }, placeholder: "City"
-        .field
-          = f.input :state, input_html: { class: "form-control" }, placeholder: "State"
-        .field
-          = f.input :portfolio, input_html: { class: "form-control" }, placeholder: "Portfolio"
-        .field
-          = f.input :email, input_html: { class: "form-control" }, placeholder: "Email"
+.container
+  
+  -# Registration Form
+  = simple_form_for(@user, :as => resource_name, :url => registration_path(resource_name), :html => {:class => 'form-vertical' }) do |f|
+    
+    -# Header
+    %h1 Create Your Account
 
-        .field
-          = f.input :password, input_html: { class: "form-control" }, placeholder: "Password"
+    -# Fields
+    .login-fields
+      = hidden_field_tag 'plan', params[:plan]
+      
+      -# Field Groups
+      .form-group
+        = f.input :first_name, input_html: { class: "form-control" }, placeholder: "First Name", :autofocus => true
+      .form-group
+        = f.input :last_name, input_html: { class: "form-control" }, placeholder: "Last Name"
+      .form-group
+        = f.input :city, input_html: { class: "form-control" }, placeholder: "City"
+      .form-group
+        = f.input :state, input_html: { class: "form-control" }, placeholder: "State"
+      .form-group
+        = f.input :portfolio, input_html: { class: "form-control" }, placeholder: "Portfolio"
+      .form-group
+        = f.input :email, input_html: { class: "form-control" }, placeholder: "Email"
+      .form-group
+        = f.input :password, input_html: { class: "form-control" }, placeholder: "Password"
+      .form-group
+        = f.input :password_confirmation, input_html: { class: "form-control" }, placeholder: "Password Confirmation"
+      .form-group
+        = f.input :biography, as: :text, input_html: { rows: 7, class: "form-control" }, placeholder: "Biography"
 
-        .field
-          = f.input :password_confirmation, input_html: { class: "form-control" }, placeholder: "Password Confirmation"
-        .field
-          = f.input :biography, as: :text, input_html: { rows: 7, class: "form-control" }, placeholder: "Biography"
+      -# Terms
+      .checkbox
+        %input{name: "Field", tabindex: "4", type: "checkbox", value: "First Choice"}
+          %label{for: "Field"} I have read and agree with the Terms of Use.
 
-      .login-actions
-        %span.login-checkbox
-          %input#Field.field.login-checkbox{name: "Field", tabindex: "4", type: "checkbox", value: "First Choice"}/
-          %label.choice{for: "Field"} I have read and agree with the Terms of Use.
-        %button.login-action.btn.btn-primary Register
-      / .actions
+      -# Button
+      %button.btn.btn-primary Register
