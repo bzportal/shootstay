@@ -1,25 +1,4 @@
 #welcome.hero-unit
   %h1 Shootstay
-  %h3 
-.row.col-md-8.plans.center
-  .col-md-4.well
-    .plan
-      %h2 Silver
-    %ul.unstyled
-      %li One lesson a month
-    %h3 $9/month
-    = link_to 'Subscribe', new_user_registration_path(:plan => 'silver'), :class => 'btn btn-default'
-  .col-md-4.well.featured
-    .plan.featured-plan
-      %h2 Gold
-    %ul.unstyled
-      %li Ten lessons a month
-    %h3 $19/month
-    = link_to 'Subscribe', new_user_registration_path(:plan => 'gold'), :class => 'btn btn-default'
-  .col-md-4.well
-    .plan
-      %h2 Platinum
-    %ul.unstyled
-      %li Thirty lessons a month
-    %h3 $29/month
-    = link_to 'Subscribe', new_user_registration_path(:plan => 'platinum'), :class => 'btn btn-default'
+  = link_to 'Apply', new_user_registration_path(:plan => 'silver'), :class => 'btn btn-default'
+
