@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :remember_me, :stripe_token, :coupon,
-    :status, :state, :city, :bio
+    :status, :state, :city, :portfolio, :biography
   attr_accessor :stripe_token, :coupon
   before_save :update_stripe
   before_destroy :cancel_subscription
@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
   end
 
   def active_for_authentication?
-    if self.roles.first.name == "admin"
+    if self.roles.present? && self.roles.first.name == "admin"
       super
     else
       super && self.status == "Approved"
