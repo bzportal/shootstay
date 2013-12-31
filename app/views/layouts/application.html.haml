@@ -1,16 +1,30 @@
 !!!
 %html
   %head
-    %meta{:name => "viewport", :content => "width=device-width, initial-scale=1.0"}
+  
+    -# Metadata
     %title= content_for?(:title) ? yield(:title) : 'Shootstay'
+    %meta{:name => "viewport", :content => "width=device-width, initial-scale=1.0"}
     %meta{:name => "description", :content => "#{content_for?(:description) ? yield(:description) : 'Shootstay'}"}
+    
+    -# Stylesheets
     = stylesheet_link_tag "application", media: "all"
+    
+    -# Javascript
     = javascript_include_tag "application"
+    
+    -# CSRF
     = csrf_meta_tags
   %body
+    
+    -# Navigation
     %header
-      = render 'layouts/navigation'
+    = render 'layouts/navigation'
+    
+    -# Main
     %main{:role => "main"}
       = render 'layouts/messages'
       = yield
+      
+    -# Footer  
     %footer

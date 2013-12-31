@@ -1,15 +1,21 @@
--# navigation styled for Bootstrap 3.0
 %nav.navbar.navbar-default.navbar-fixed-top.navbar-inverse
   .container
+    
+    -# Navbar Header
     .navbar-header
+    
+      -# Navbar toggle
       %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", :type => "button"}
-        %span.sr-only Toggle navigation
         %span.icon-bar
         %span.icon-bar
         %span.icon-bar
+        
+      -# Logo
       = link_to 'Shootstay', root_path, class: 'navbar-brand'
+      
+    -# Navbar menu
     .collapse.navbar-collapse
       %ul.nav.navbar-nav
         = render 'layouts/navigation_links'
-      %ul.nav.navbar-nav.pull-right
         = render 'layouts/users_links'
+        
