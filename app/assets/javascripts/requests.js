@@ -2,8 +2,8 @@ $(function () {
   $('.select2').select2({
     id: function(e) { return e.name + '|' + e.adminName1 + '|' + e.countryName },
     placeholder: 'Location',
-    allowClear: true,
-    width: '260px',
+    allowClear: false,
+    width: '100%',
     minimumInputLength: 2,
     ajax: {
       url: 'http://ws.geonames.org/searchJSON',
@@ -22,6 +22,7 @@ $(function () {
     },
     formatResult: locationFormatResult,
     formatSelection: locationFormatSelection,
-    dropdownCssClass: "bigdrop"
   });
+
+  $('#new_request').validate();
 });

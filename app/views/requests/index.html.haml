@@ -21,7 +21,6 @@
             %th Preferred Location 2
             %th Start Date
             %th End Date
-            %th Submitted
             %th Status
             %th.action-field
             
@@ -40,8 +39,6 @@
               %td
                 = request.end_date
               %td
-                = request.created_at.to_date
-              %td
                 - if current_user.has_role? :admin
                   %a{"data-toggle" => "modal", href: "#status-options-#{request.id}"}
                     = request.status.titleize unless request.status.nil?
@@ -49,7 +46,7 @@
                 - else
                   = request.status.titleize unless request.status.nil?
               %td
-                = link_to "<i class='icon-edit'></i> Edit".html_safe, "#request-#{request.id}", class: "btn btn-default btn-sm", data: { toggle: "modal" }
-                = render partial: "modify", locals: {request: request}
+                / = link_to "<i class='icon-edit'></i> Edit".html_safe, "#request-#{request.id}", class: "btn btn-default btn-sm", data: { toggle: "modal" }
+                / = render partial: "modify", locals: {request: request}
                 = link_to "<i class='icon-remove'></i> Remove".html_safe, request_path(request), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-danger btn-sm"
       = will_paginate @requests, previous_label: "&laquo;", next_label: "&raquo;"
