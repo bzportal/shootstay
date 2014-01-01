@@ -10,10 +10,9 @@ class ApplicationController < ActionController::Base
       users_path
     else
       if current_user.customer_id.nil?
-        edit_user_registration_path(notice: "Welcome to apply shootstay!")
+        requests_path(notice: "Welcome to apply shootstay!")
       else
-        raise
-        redirect_to requests_path
+        requests_path(notice: "Welcome to apply shootstay!")
       end
     end
   end

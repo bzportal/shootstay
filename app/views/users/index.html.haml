@@ -5,8 +5,7 @@
   .widget-content
     .table-responsive
       %table.table.table-striped.table-bordered
-      
-        -# Table Head
+        / Table Head
         %thead
           %tr
             %th User Name
@@ -16,7 +15,7 @@
             %th Role
             %th Action
             
-        -# Table Head
+        / Table Head
         %tbody
           - @users.each do |user|
             %tr

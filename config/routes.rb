@@ -16,6 +16,9 @@ ShootstayV3::Application.routes.draw do
       get :approve
       get :decline
     end
+    member do
+      get :approved
+    end
   end
 
   resources :requests

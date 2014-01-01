@@ -22,10 +22,11 @@
   = f.button :submit, 'Update', :class => 'btn btn-primary'
 
 -# Card
-%h3 Card
-%p
-  Using card ending with #{@user.last_4_digits}
-  %a.btn.btn-mini{"data-toggle" => "modal", :href => "#card-data", :type => "button"} Change card
+- if !current_user.has_role? :admin
+  %h3 Card
+  %p
+    Using card ending with #{@user.last_4_digits}
+    %a.btn.btn-mini{"data-toggle" => "modal", :href => "#card-data", :type => "button"} Change card
 
 -# Cancel my account
 %h3 Cancel my account
@@ -41,7 +42,7 @@ Unhappy? #{link_to "Cancel my account", registration_path(resource_name), :data 
         .modal-header
           %a.close{"data-dismiss" => "modal"} ×
           %h4 Change Credit Card
-          
+
         -# Body
         .modal-body
           .form-group
