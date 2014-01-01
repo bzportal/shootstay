@@ -45,9 +45,9 @@ class HousesController < ApplicationController
   def destroy
     house = House.find(params[:id])
     if house.destroy
-      redirect_to(houses_path, notice: "The House is deleted successfully")
+      redirect_to(homeowner_path(house.homeowner_id), notice: "House is deleted successfully")
     else
-      redirect_to(houses_path, notice: "Failed to delete the house")
+      redirect_to(homeowner_path(house.homeowner_id), notice: "Failed to delete the house")
     end
   end
 

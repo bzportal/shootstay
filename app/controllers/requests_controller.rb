@@ -33,7 +33,7 @@ class RequestsController < ApplicationController
 	def destroy
 		request = Request.find(params[:id])
 		if request.destroy
-			redirect_to(requests_path, notice: "The Request is deleted successfully")
+			redirect_to(requests_path, notice: "Request is deleted successfully")
 		else
 			redirect_to(requests_path, notice: "Failed to delete the request")
 		end
