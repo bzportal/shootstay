@@ -2,11 +2,11 @@
   .row
     .col-sm-6.col-xs-12
       %h2 Pictures
-      = simple_form_for @house, url: house_path(@house), remote: true, html: { method: :post, class: "form-horizontal" } do |f|
+      = simple_form_for @house, url: house_path(@house), remote: true, html: { method: :put, class: "form-horizontal form-house" } do |f|
         = f.hidden_field :homeowner_id
         = render partial: "form", locals: {f: f}
         %br
-        %button.btn.btn-primary{type: "submit", disabled: ""} Update
+        %button#btn_house_submit.btn.btn-primary{type: "submit"} Update
   .row
     %hr
     = form_for Picture.new, :html => { :multipart => true, :id => "fileupload"  } do |f|

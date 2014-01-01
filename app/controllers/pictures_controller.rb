@@ -43,8 +43,7 @@ class PicturesController < ApplicationController
   # POST /pictures
   # POST /pictures.json
   def create
-    failed = true
-    puts "hello"
+    failed = false
     photos = params[:picture][:photo]
     
     photos.each do |photo|
@@ -61,7 +60,7 @@ class PicturesController < ApplicationController
           :content_type => 'text/html',
           :layout => false
         }
-        format.json { render json: {files: [@picture.to_jq_picture]}, status: :created, location: @picture }
+        format.json { render json: {files: [@picture.to_jq_picture]}, status: :created }
       else
         format.html { render action: "new" }
         format.json { render json: @picture.errors, status: :unprocessable_entity }

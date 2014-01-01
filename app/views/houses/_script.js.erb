@@ -54,14 +54,14 @@
 
 <script type="text/javascript" charset="utf-8">
   $(function () {
-    var uploadfiles = 0;
+    var uploadfiles = <%= @house.pictures.count %>;
+
     function disableSubmit() {
-      console.log(uploadfiles);
       if (uploadfiles < 1) {
-        $("#btn_house_create").prop("disabled", true);
+        $("#btn_house_submit").prop("disabled", true);
       }
       else {
-        $("#btn_house_create").prop("disabled", false);
+        $("#btn_house_submit").prop("disabled", false);
       }
     }
 
@@ -73,6 +73,9 @@
     }).bind("fileuploadadd", function(e, data){
       uploadfiles ++;
       disableSubmit();
+    }).bind("fileuploaddestroy", function(e, data){
+      uploadfiles --;
+      disableSubmit();
     }).bind("fileuploadfail", function(e, data){
       uploadfiles --;
       disableSubmit();
@@ -80,7 +83,7 @@
       window.location.href = "<%= homeowner_path(@house.homeowner_id) %>";
     });
 
-    $("#new_house").on("ajax:success", function(e, data, status, xhr) {
+    $(".form-house").on("ajax:success", function(e, data, status, xhr) {
       $("#picture_house_id").val(data.id);
       $('#btn_upload').click();
     })

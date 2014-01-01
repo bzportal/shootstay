@@ -35,8 +35,10 @@
               %td
                 = house.zipcode
               %td
-                = house.house_type.to_date
+                = house.house_type
               %td
-                = link_to "<i class='icon-edit'></i> Edit".html_safe, edit_house_path, class: "btn btn-default btn-sm"
-                = link_to "<i class='icon-remove'></i> Remove".html_safe, house_path(house), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-default btn-sm"
+                = house.created_at.to_date
+              %td
+                = link_to "<i class='icon-edit'></i> Edit".html_safe, edit_house_path(house), class: "btn btn-default btn-sm"
+                = link_to "<i class='icon-remove'></i> Remove".html_safe, house_path(house), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-danger btn-sm"
       = will_paginate @houses, previous_label: "&laquo;", next_label: "&raquo;"
