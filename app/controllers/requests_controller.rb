@@ -1,5 +1,6 @@
 class RequestsController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :validate_account
 
 	def index
 		@requests = Request.paginate(page: params[:page], per_page: 10)
@@ -62,6 +63,12 @@ class RequestsController < ApplicationController
       RequestMailer.deny_request(@request)
     elsif @request.status == "cancelled"
       RequestMailer.cancel_user(@request)
+    end
+  end
+
+  def validate_account
+    if current_user.customer_id.nil?
+    	flash[:error] = "Your account must be validated."
     end
   end
 end

@@ -9,11 +9,7 @@ class ApplicationController < ActionController::Base
     if current_user.roles.first.name == "admin"
       users_path
     else
-      if current_user.customer_id.nil?
-        requests_path(notice: "Welcome to apply shootstay!")
-      else
-        requests_path(notice: "Welcome to apply shootstay!")
-      end
+      requests_path(notice: "Welcome to apply shootstay!")
     end
   end
 

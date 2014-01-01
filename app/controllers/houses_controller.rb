@@ -1,5 +1,6 @@
 class HousesController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :validate_account
 
 	respond_to :json, only: [:create, :update]
 
@@ -35,5 +36,12 @@ class HousesController < ApplicationController
   def show
     @house = House.find(params[:id])
 
+  end
+
+  private
+  def validate_account
+    if current_user.customer_id.nil?
+      flash[:error] = "Your account must be validated."
+    end
   end
 end

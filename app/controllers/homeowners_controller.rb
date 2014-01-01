@@ -1,5 +1,6 @@
 class HomeownersController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :validate_account
 
 	def index
 		@homeowners = Homeowner.paginate(page: params[:page], per_page: 10)
@@ -59,6 +60,12 @@ class HomeownersController < ApplicationController
       HomeownerMailer.deny_homeowner(@homeowner)
     elsif @homeowner.status == "cancelled"
       HomeownerMailer.cancel_user(@homeowner)
+    end
+  end
+
+  def validate_account
+    if current_user.customer_id.nil?
+      flash[:error] = "Your account must be validated."
     end
   end
 end
