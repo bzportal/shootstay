@@ -54,35 +54,51 @@
 
 <script type="text/javascript" charset="utf-8">
   $(function () {
-      // Initialize the jQuery File Upload widget:
-      $('#fileupload').fileupload({
-        previewMaxWidth: 200,
-        previewMaxHeight: 200,
-        previewCrop: true
-      })
-      .bind("fileuploaddone", function(e, data){
-        window.location.href = "<%= homeowner_path(@house.homeowner_id) %>";
-      });
+    var uploadfiles = 0;
+    function disableSubmit() {
+      console.log(uploadfiles);
+      if (uploadfiles < 1) {
+        $("#btn_house_create").prop("disabled", true);
+      }
+      else {
+        $("#btn_house_create").prop("disabled", false);
+      }
+    }
 
-      $("#new_house").on("ajax:success", function(e, data, status, xhr) {
-        $("#picture_house_id").val(data.id);
-        $('#btn_upload').click();
-      })
- 
-      // Load existing files:
-      $.getJSON("<%= pictures_path(house_id: @house.id) %>", function (files) {
-        var fu = $('#fileupload').data('blueimpFileupload'), 
-          template;
-        fu._adjustMaxNumberOfFiles(-files.length);
-        console.log(files);
-        template = fu._renderDownload(files)
-          .appendTo($('#fileupload .files'));
-        // Force reflow:
-        fu._reflow = fu._transition && template.length &&
-          template[0].offsetWidth;
-        template.addClass('in');
-        $('#loading').remove();
-      });
+    // Initialize the jQuery File Upload widget:
+    $('#fileupload').fileupload({
+      previewMaxWidth: 250,
+      previewMaxHeight: 250,
+      previewCrop: true
+    }).bind("fileuploadadd", function(e, data){
+      uploadfiles ++;
+      disableSubmit();
+    }).bind("fileuploadfail", function(e, data){
+      uploadfiles --;
+      disableSubmit();
+    }).bind("fileuploaddone", function(e, data){
+      window.location.href = "<%= homeowner_path(@house.homeowner_id) %>";
+    });
+
+    $("#new_house").on("ajax:success", function(e, data, status, xhr) {
+      $("#picture_house_id").val(data.id);
+      $('#btn_upload').click();
+    })
+
+    // Load existing files:
+    $.getJSON("<%= pictures_path(house_id: @house.id) %>", function (files) {
+      var fu = $('#fileupload').data('blueimpFileupload'), 
+        template;
+      fu._adjustMaxNumberOfFiles(-files.length);
+      console.log(files);
+      template = fu._renderDownload(files)
+        .appendTo($('#fileupload .files'));
+      // Force reflow:
+      fu._reflow = fu._transition && template.length &&
+        template[0].offsetWidth;
+      template.addClass('in');
+      $('#loading').remove();
+    });
 
   });
 </script>

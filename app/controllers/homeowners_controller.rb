@@ -64,7 +64,7 @@ class HomeownersController < ApplicationController
   end
 
   def validate_account
-    if current_user.customer_id.nil?
+    if current_user.has_role? (:admin) == false && current_user.customer_id.nil?
       flash[:error] = "Your account must be validated."
     end
   end

@@ -5,14 +5,14 @@
       = simple_form_for @house, url: house_path(@house), remote: true, html: { method: :post, class: "form-horizontal" } do |f|
         = f.hidden_field :homeowner_id
         = render partial: "form", locals: {f: f}
-        %br/
-        %button.btn.btn-primary{type: "submit"} Create
+        %br
+        %button.btn.btn-primary{type: "submit", disabled: ""} Update
   .row
-    %hr/
+    %hr
     = form_for Picture.new, :html => { :multipart => true, :id => "fileupload"  } do |f|
       / The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload
       .row.files{"data-target" => "#modal-gallery", "data-toggle" => "modal-gallery"}
-      %br/
+      %br
       = f.hidden_field :house_id
       .row.fileupload-buttonbar
         .col-sm-7
@@ -31,6 +31,6 @@
             .bar{style: "width:0%;"}
       / The loading indicator is shown during image processing
       .fileupload-loading
-      %br/
+      %br
       / The table listing the files available for upload/download
 = render "houses/script.js"
